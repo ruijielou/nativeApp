@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { View, StatusBar, Platform } from 'react-native'
 import { Navigator } from "react-native-deprecated-custom-components"
 import Wrapper from './component/Wrapper'
+import Home from "./pages/Home"
 //import Events from './util/event'
 
 export default class Navigation extends Component{
@@ -22,19 +23,20 @@ export default class Navigation extends Component{
             }
           />
         ):(
-          <View style={{flex: 1}}>
+          <View style={{flex: 1,display: 'flex'}}>
             <StatusBar
              backgroundColor="#FFE403"
              barStyle="light-content"
            />
-            <Navigator
+           <Home />
+            {/* <Navigator
               initialRoute={{component: Wrapper}}
               configureScene={() => Navigator.SceneConfigs.FloatFromRight}
               renderScene={(route, navigator) => {
                     return <route.component navigator={navigator} {...route.args}/>
                   }
               }
-            />
+            /> */}
           </View>
         )
     }
