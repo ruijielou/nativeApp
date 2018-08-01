@@ -70,7 +70,7 @@ export default class TabView extends Component {
 
 const styles = StyleSheet.create({
     tabbar: {
-      height: px2dp(52),
+      height: 0,
       alignItems:'center',
       justifyContent: 'center',
       backgroundColor: '#fff'

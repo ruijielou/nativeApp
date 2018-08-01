@@ -1,20 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app">
 
-    <!-- 访问GPS定位 --> 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
-    <!-- 网络定位--> 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位--> 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+     <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="22" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
       android:name=".MainApplication"
@@ -25,7 +27,7 @@
 
       <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="q4EmCnqP3GznkMQ2nDyYFve8t4UBgYyr"/>
+            android:value="YL9jjNeIP404wNGNyloZyZQQulSg2L7A"/>
 
       <activity
         android:name=".MainActivity"
