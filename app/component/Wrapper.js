@@ -12,7 +12,6 @@ export default class Wrapper extends Component{
         return(
           <View style={{flex: 1, justifyContent: 'flex-end'}}>
               <TabView navigator={this.props.navigator}/>
-              {/* <Text>aaaaaa</Text> */}
           </View>
         )
     }

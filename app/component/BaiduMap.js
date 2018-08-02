@@ -14,8 +14,8 @@ import {
 import Dimensions from "Dimensions";
 
 export default class BaiduMapDemo extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       mayType: MapTypes.NORMAL,

@@ -16,7 +16,7 @@ export default class Navigation extends Component{
         return Platform.OS == "ios"?(
           <Navigator
             initialRoute={{component: Wrapper}}
-            configureScene={() => Navigator.SceneConfigs.FloatFromRight}
+            configureScene={() => Navigator.SceneConfigs.FloatFromLeft}
             renderScene={(route, navigator) => {
                   return <route.component navigator={navigator} {...route.args}/>
                 }
@@ -28,15 +28,15 @@ export default class Navigation extends Component{
              backgroundColor="#FFE403"
              barStyle="light-content"
            />
-           <Home />
-            {/* <Navigator
+           {/* <Home navigator={navigator}/> */}
+            <Navigator
               initialRoute={{component: Wrapper}}
-              configureScene={() => Navigator.SceneConfigs.FloatFromRight}
+              configureScene={() => Navigator.SceneConfigs.FloatFromLeft}
               renderScene={(route, navigator) => {
                     return <route.component navigator={navigator} {...route.args}/>
                   }
               }
-            /> */}
+            />
           </View>
         )
     }
