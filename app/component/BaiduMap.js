@@ -21,8 +21,8 @@ export default class BaiduMapDemo extends Component {
       mayType: MapTypes.NORMAL,
       zoom: 13,
       center: {
-        longitude: 113.73615,
-        latitude: 34.77001
+        longitude: 0,
+        latitude: 0
       },
       trafficEnabled: false,
       baiduHeatMapEnabled: false,
@@ -39,6 +39,10 @@ export default class BaiduMapDemo extends Component {
         }
       ]
     };
+    Geolocation.getCurrentPosition().then(res =>{
+      console.warn(res)
+      this.setState({center:{longitude: res.longitude, latitude: res.latitude}})
+    })
   }
 
   componentDidMount() {}
