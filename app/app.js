@@ -25,10 +25,9 @@ export default class Navigation extends Component{
         ):(
           <View style={{flex: 1,display: 'flex'}}>
             <StatusBar
-             backgroundColor="#FFE403"
+             backgroundColor="#EED700"
              barStyle="light-content"
            />
-           {/* <Home navigator={navigator}/> */}
             <Navigator
               initialRoute={{component: Wrapper}}
               configureScene={() => Navigator.SceneConfigs.FloatFromLeft}

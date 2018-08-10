@@ -40,7 +40,7 @@ export default class BaiduMapDemo extends Component {
       ]
     };
     Geolocation.getCurrentPosition().then(res =>{
-      console.warn(res)
+      // console.warn(res)
       this.setState({center:{longitude: res.longitude, latitude: res.latitude}})
     })
   }

@@ -19,11 +19,18 @@ import My from "./My";
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      left: Dimensions.get("window").width*2
+    }
   }
   goTo() {
-    console.log(this.props);
-    // console.warn(JSON.stringify(this.props.navigator))
-    this.props.navigator.push({ component: My });
+    this.setState({left: 0})
+  }
+  leftPress(e) {
+    console.log('leftpress')
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    this.setState({left: Dimensions.get("window").width*2})
   }
   render() {
     return (
@@ -48,14 +55,18 @@ export default class Home extends Component {
           </View>
           <BaiduMapDemo />
         </View>
-        <View style={styles.my}>
-          {/* <My /> */}
+        <View style={[styles.my, {left:this.state.left}]} left={this.state.left}>
+          <My leftPress={this.leftPress.bind(this)}/>
         </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  my: {
+position: "absolute",
+zIndex: 999
+  },
   homeContainer: {
     flex: 1,
     display: 'flex',
@@ -63,22 +74,8 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("window").height-100 //窗口宽度
   },
   home: {
-    // width: Dimensions.get("window").width-200, //窗口宽度
-    // width: Dimensions.get("window").height-100, //窗口宽度
-    // position: "absolute", //定位
-    // top: 0,
-    // left: 0,
     display: 'flex',
-    flex: 1,
-
-    // display: "flex",
-    //     width:Dimensions.get('window').width, //窗口宽度
-    //     width:Dimensions.get('window').height, //窗口宽度
-    // justifyContent:'center',
-    // alignItems:'center',
-    // position:'absolute',//定位
-    // top: 0,
-    // left: 0
+    flex: 1
   },
   topBanner: {
     paddingHorizontal: 20,
