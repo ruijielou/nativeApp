@@ -7,31 +7,52 @@ import {
   Text,
   TextInput,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableNativeFeedback
 } from "react-native";
 
-import BaiduMapDemo from "../component/BaiduMap";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icons from "react-native-vector-icons/Feather";
 import px2dp from "../util";
 import My from "./My";
+import { MapView, Marker } from "react-native-amap3d";
+import Geolocation from "Geolocation";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      left: Dimensions.get("window").width*2
-    }
+      left: Dimensions.get("window").width * 2,
+      logs: [],
+      coordinate: {
+        latitude: 0,
+        longitude: 0
+      },
+      display: "none"
+    };
+
+    Geolocation.getCurrentPosition(res => {
+      this.setState({
+        coordinate: {
+          latitude: res.coords.latitude + 0,
+          longitude: res.coords.longitude
+        }
+      });
+    });
   }
+
   goTo() {
-    this.setState({left: 0})
+      this.props.navigator.push({ component: My });
   }
-  leftPress(e) {
-    console.log('leftpress')
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    this.setState({left: Dimensions.get("window").width*2})
+  leftPress() {
+    this.setState({ left: Dimensions.get("window").width * 2 });
+    console.log(this.state)
   }
+  _onMarkerPress(res) {
+    console.log(res);
+    // this.setState({display: 'block'})
+  }
+
   render() {
     return (
       <View style={styles.homeContainer}>
@@ -53,28 +74,59 @@ export default class Home extends Component {
               <Icons name="bell" color="#794038" size={30} />
             </Text>
           </View>
-          <BaiduMapDemo />
-        </View>
-        <View style={[styles.my, {left:this.state.left}]} left={this.state.left}>
-          <My leftPress={this.leftPress.bind(this)}/>
+          <MapView
+            style={styles.map}
+            locationEnabled
+            coordinate={{
+              latitude: this.state.coordinate.latitude,
+              longitude: this.state.coordinate.longitude
+            }}
+            zoomLevel={13}
+            showsIndoorMap
+          >
+            <Marker
+              title="自定义图片"
+              image="flag"
+              coordinate={{
+                latitude: 34.741197,
+                longitude: 113.753701
+              }}
+            >
+              <View style={[styles.popup, { display: this.state.display }]}>
+                <Text />
+              </View>
+            </Marker>
+          </MapView>
         </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  popup: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 999999,
+    backgroundColor: "rgba(0,0,0,.5)"
+  },
+  map: {
+    flex: 1
+  },
   my: {
-position: "absolute",
-zIndex: 999
+    position: "absolute",
+    zIndex: 999
   },
   homeContainer: {
     flex: 1,
-    display: 'flex',
+    display: "flex"
     // width: Dimensions.get("window").width-200, //窗口宽度
     // width: Dimensions.get("window").height-100 //窗口宽度
   },
   home: {
-    display: 'flex',
+    display: "flex",
     flex: 1
   },
   topBanner: {
