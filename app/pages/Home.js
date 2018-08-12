@@ -15,6 +15,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Icons from "react-native-vector-icons/Feather";
 import px2dp from "../util";
 import My from "./My";
+import Message from "./Message"
 import { MapView, Marker } from "react-native-amap3d";
 import Geolocation from "Geolocation";
 
@@ -44,6 +45,9 @@ export default class Home extends Component {
   goTo() {
       this.props.navigator.push({ component: My });
   }
+  goMessage() {
+    this.props.navigator.push({ component: Message });
+}
   leftPress() {
     this.setState({ left: Dimensions.get("window").width * 2 });
     console.log(this.state)
@@ -70,7 +74,7 @@ export default class Home extends Component {
                 placeholderTextColor="#666"
               />
             </View>
-            <Text style={styles.left}>
+            <Text style={styles.left} onPress={() => this.goMessage()}>
               <Icons name="bell" color="#794038" size={30} />
             </Text>
           </View>
