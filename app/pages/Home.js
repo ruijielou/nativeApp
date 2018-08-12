@@ -8,14 +8,16 @@ import {
   TextInput,
   View,
   TouchableHighlight,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  BackHandler,
+  ToastAndroid
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icons from "react-native-vector-icons/Feather";
 import px2dp from "../util";
 import My from "./My";
-import Message from "./Message"
+import Message from "./Message";
 import { MapView, Marker } from "react-native-amap3d";
 import Geolocation from "Geolocation";
 
@@ -42,15 +44,42 @@ export default class Home extends Component {
     });
   }
 
+  componentWillMount() {
+    // console.warn(Platform.OS)
+    // if (Platform.OS === 'android') {
+    BackHandler.addEventListener("hardwareBackPress", this.onBackAndroid);
+    // }
+  }
+  onBackAndroid = () => {
+    const navigator = this.props.navigator;
+    const routers = navigator.getCurrentRoutes();
+    console.log(routers)
+    console.log("当前路由长度：" + routers.length);
+    if (routers.length >= 2) {
+      navigator.pop();
+      return true; //接管默认行为
+    } else {
+      //到了主页了
+      if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+        //最近2秒内按过back键，可以退出应用。
+        return false;
+      }
+      this.lastBackPressed = Date.now();
+      ToastAndroid.show("再按一次退出应用", ToastAndroid.SHORT);
+      return true;
+    }
+    // return false;//默认行为
+  }
+
   goTo() {
-      this.props.navigator.push({ component: My });
+    this.props.navigator.push({ component: My });
   }
   goMessage() {
     this.props.navigator.push({ component: Message });
-}
+  }
   leftPress() {
     this.setState({ left: Dimensions.get("window").width * 2 });
-    console.log(this.state)
+    console.log(this.state);
   }
   _onMarkerPress(res) {
     console.log(res);
