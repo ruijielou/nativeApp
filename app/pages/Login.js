@@ -14,10 +14,20 @@ import {
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
+
+import UserRegister from "./UserRegister";
 let { width, height } = Dimensions.get("window");
 let formWidth = (width / 5) * 4;
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  goToRegister() {
+    this.props.navigator.push({ component: UserRegister });
+  }
+
   render() {
     return (
       <View style={styles.wrap}>
@@ -53,7 +63,12 @@ export default class Login extends Component {
               />
             </View>
             <View style={styles.btnGroup}>
-              <Text style={{ fontSize: 14, color: "#794038" }}>立即注册</Text>
+              <Text
+                style={{ fontSize: 14, color: "#794038" }}
+                onPress={this.goToRegister.bind(this)}
+              >
+                立即注册
+              </Text>
               <Text style={{ fontSize: 14, color: "#794038" }}>找回密码</Text>
             </View>
             <TouchableOpacity style={styles.loginBtn}>
@@ -159,14 +174,14 @@ const styles = StyleSheet.create({
   formInput: {
     backgroundColor: "#ddd",
     borderRadius: 30,
-    paddingLeft: 10,
+    paddingLeft: 20,
     paddingRight: 10,
     marginBottom: 20,
     display: "flex",
     flexDirection: "row"
   },
   ico: {
-    fontSize: 18,
+    fontSize: 30,
     color: "#794038",
     textAlignVertical: "center"
   },
